@@ -6,9 +6,17 @@ import { useLoginMutation } from './authApiSlice'
 import usePersist from '../../hooks/usePersist'
 import useTitle from '../../hooks/useTitle'
 import PulseLoader from 'react-spinners/PulseLoader'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUser, faLock, faQuestion } from "@fortawesome/free-solid-svg-icons"
+import LeftPanel from './LeftPanel'
+import Register from './Register'
+import Swal from 'sweetalert2';
+import './Login.css'
+import fileDownload from 'js-file-download'
+import axios from "../../app/api/axios";
 
 const Login = () => {
-    useTitle('Employee Login')
+    useTitle('SPD ISO 50001')
 
     const userRef = useRef()
     const errRef = useRef()
@@ -38,16 +46,52 @@ const Login = () => {
             dispatch(setCredentials({ accessToken }))
             setUsername('')
             setPassword('')
-            navigate('/dash')
+            navigate('/dashboard')
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: 'Signed in successfully'
+            })
         } catch (err) {
             if (!err.status) {
-                setErrMsg('No Server Response');
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Server tidak menanggapi coba lagi nanti!'
+                })
             } else if (err.status === 400) {
-                setErrMsg('Missing Username or Password');
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Data yang di masukkan kurang lengkap!'
+                })
             } else if (err.status === 401) {
-                setErrMsg('Unauthorized');
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Username atau Password salah!'
+                })
             } else {
                 setErrMsg(err.data?.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Login Gagal!'
+                })
             }
             errRef.current.focus();
         }
@@ -61,54 +105,114 @@ const Login = () => {
 
     if (isLoading) return <PulseLoader color={"#FFF"} />
 
+
+
+    const Download = async (e) => {
+        e.preventDefault();
+
+
+        try {
+
+
+            axios({
+                url: 'http://localhost:3500/manualbook',
+                method: 'GET',
+                responseType: 'blob', // important
+            }).then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'file.pdf');
+                document.body.appendChild(link);
+                link.click();
+            });
+
+
+            // const response = await axios.get(
+            //     DOWNLOAD_URL,
+            //     { responseType: "blob" }
+            // ).then((res) => {
+            //     const url = window.URL.createObjectURL(new Blob([res.data]));
+            //     const link = document.createElement('a');
+            //     link.href = url;
+            //     link.setAttribute('download', 'file.pdf');
+            //     document.body.appendChild(link);
+            //     link.click();
+            // })
+        } catch (err) {
+
+        }
+
+    }
+
+
     const content = (
-        <section className="public">
-            <header>
-                <h1>Employee Login</h1>
-            </header>
-            <main className="login">
-                <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
+        <section className="container">
+            <div className="helpBox">
+                <button onClick={Download} className="info"><FontAwesomeIcon icon={faQuestion} className="icon" /></button>
+            </div>
 
-                <form className="form" onSubmit={handleSubmit}>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        className="form__input"
-                        type="text"
-                        id="username"
-                        ref={userRef}
-                        value={username}
-                        onChange={handleUserInput}
-                        autoComplete="off"
-                        required
-                    />
+            <div className="forms-container">
+                <div className="signin-signup">
+                    <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
 
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        className="form__input"
-                        type="password"
-                        id="password"
-                        onChange={handlePwdInput}
-                        value={password}
-                        required
-                    />
-                    <button className="form__submit-button">Sign In</button>
+                    <form className="sign-in-form" onSubmit={handleSubmit}>
+                        <h2 className="title" id="judul">Aplikasi Penyusunan Dokumen <br /> Sistem Manajemen Energi</h2>
+
+                        <h2 className="title" id="welcome">Selamat Datang!</h2>
+
+                        <div className="input-field">
+                            <FontAwesomeIcon icon={faUser} className="icon" />
+
+                            <input
+                                className="form__input"
+                                type="text"
+                                id="username"
+                                placeholder="Username"
+                                ref={userRef}
+                                value={username}
+                                onChange={handleUserInput}
+                                autoComplete="off"
+                                required
+                            />
+                        </div>
+
+                        <div className="input-field">
+                            <FontAwesomeIcon icon={faLock} className="icon" />
+                            <input
+                                className="form__input"
+                                type="password"
+                                id="password"
+                                placeholder="Password"
+                                onChange={handlePwdInput}
+                                value={password}
+                                required
+                            />
+                        </div>
+
+                        <button className="form__submit-button btn solid">Sign In</button>
 
 
-                    <label htmlFor="persist" className="form__persist">
-                        <input
-                            type="checkbox"
-                            className="form__checkbox"
-                            id="persist"
-                            onChange={handleToggle}
-                            checked={persist}
-                        />
-                        Trust This Device
-                    </label>
-                </form>
-            </main>
-            <footer>
+                        <label htmlFor="persist" className="form__persist">
+                            <input
+                                type="checkbox"
+                                className="form__checkbox"
+                                id="persist"
+                                onChange={handleToggle}
+                                checked={persist}
+                            />
+                            Trust This Device
+                        </label>
+                    </form>
+                    <Register />
+
+                </div>
+            </div>
+            <div className="footer">Copyright &copy; 2022 Tim UG. All rights reserved.</div>
+            <LeftPanel />
+            {/* <footer>
                 <Link to="/">Back to Home</Link>
-            </footer>
+            </footer> */}
         </section>
     )
 
