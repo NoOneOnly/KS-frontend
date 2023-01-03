@@ -7,7 +7,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 const Document2 = () => {
     return (
         <>
-            <Topbar />
+
             <div className="main">
                 <div className="details">
                     {/* detail list */}
@@ -32,7 +32,7 @@ const Document2 = () => {
                 </div>
 
             </div>
-            <Sidebar />
+
         </>
     )
 }

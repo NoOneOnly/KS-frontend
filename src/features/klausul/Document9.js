@@ -6,6 +6,7 @@ import { faNoteSticky, faListNumeric } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 import axios from "../../app/api/axios";
 import { saveAs } from 'file-saver'
+import { Card } from "antd";
 
 const DATA_URL = '/document9'
 
@@ -15,6 +16,10 @@ const Document9 = () => {
     const [receiptId, setReceiptId] = useState("")
     const [price1, setPrice1] = useState("")
     const [price2, setPrice2] = useState("")
+
+    const [subSatu, setSubSatu] = useState("")
+    const [subDua, setSubDua] = useState("")
+    const [subTiga, setSubTiga] = useState("")
 
     const [errMsg, setErrMsg] = useState("");
 
@@ -50,7 +55,7 @@ const Document9 = () => {
         try {
             const response = await axios.post(
                 DATA_URL,
-                JSON.stringify({ name, receiptId, price1, price2 }),//data.img baseFile
+                JSON.stringify({ name, receiptId, price1, price2, subSatu, subDua, subTiga }),//data.img baseFile
 
                 {
                     headers: {
@@ -82,134 +87,171 @@ const Document9 = () => {
 
     return (
         <>
-            <Topbar />
+
             <div className="main">
-                <div className="details">
+                <div className="details" id="klausul1">
                     {/* detail list */}
-                    <div className="recentOrders">
-                        <div className="cardHeader">
-                            <h2>Klausul 9</h2>
-                        </div>
+
+                    <Card style={{ boxShadow: "0 7px 25px rgb(0 0 0 / 8%)", borderRadius: 20 }}>
+                        <h2>Klausul 9</h2>
+                        <br />
+                        <br />
                         <h1>Evaluasi Kinerja</h1>
+                        <br />
                         <p>
-                            <b>9.1</b> Pemantauan, pengukuran, analisis dan evaluasi kinerja energi dan EnMS <br />
-                            <b>9.2</b> Audit internal <br />
+                            <b>9.1</b> Pemantauan, pengukuran, analisis dan evaluasi kinerja energi dan EnMS
+                            <div className="input-field input-dokumen">
+                                <div className="">
+                                    <FontAwesomeIcon icon={faNoteSticky} className='icon' />
+                                </div>
+                                <input
+                                    type="text"
+                                    name="subSatu"
+                                    className="form-control"
+                                    placeholder="Input 9.1"
+                                    id="subSatu"
+                                    onChange={(e) => setSubSatu(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <br />
+                            <b>9.2</b> Audit internal
+                            <div className="input-field input-dokumen">
+                                <div className="">
+                                    <FontAwesomeIcon icon={faListNumeric} className='icon' />
+                                </div>
+                                <input
+                                    type="text"
+                                    name="subDua"
+                                    placeholder="Input 9.2"
+                                    className="form-control"
+                                    id="subDua"
+                                    onChange={(e) => setSubDua(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <br />
                             <b>9.3</b> Tinjauan manajemen <br />
+                            <div className="input-field input-dokumen">
+                                <div className="">
+                                    <FontAwesomeIcon icon={faListNumeric} className='icon' />
+                                </div>
+                                <input
+                                    type="text"
+                                    name="subTiga"
+                                    placeholder="Input 9.3"
+                                    className="form-control"
+                                    id="subTiga"
+                                    onChange={(e) => setSubTiga(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <br />
 
                         </p>
-                    </div>
 
-                    {/* New Customer */}
-                    <div className="recentCustomers">
-                        <div className="cardHeader">
-                            <h2>Performance Evaluation (Evaluasi Kinerja)</h2>
-                        </div>
-                        <table>
-                            Under Construction
-                        </table>
-
-                    </div>
-                </div>
-
-                <div className="details details-dokumen">
-                    {/* detail list */}
-                    <div className="recentOrders">
-                        <div className="cardHeader">
-                            <h2>Halaman Klausul 9</h2>
-                        </div>
+                    </Card>
+                    <Card style={{ boxShadow: "0 7px 25px rgb(0 0 0 / 8%)", borderRadius: 20 }}>
+                        <h2>Operation</h2>
                         <div className="form-container">
                             <div className="form-input">
-                                <form className='dokumen'>
-                                    <div className="">
 
-                                        <div className="input-field input-dokumen">
-                                            <div className="">
-                                                <FontAwesomeIcon icon={faNoteSticky} className='icon' />
-                                            </div>
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                className="form-control"
-                                                placeholder="Nama Perusahaan"
-                                                id="name"
-                                                onChange={(e) => setName(e.target.value)}
-                                                required
-                                            />
-                                        </div>
-                                    </div>
+                                <div className="">
 
-                                    <div className="">
-
-                                        <div className="input-field input-dokumen">
-                                            <div className="">
-                                                <FontAwesomeIcon icon={faListNumeric} className='icon' />
-                                            </div>
-                                            <input
-                                                type="number"
-                                                name="receiptId"
-                                                placeholder="No Rev"
-                                                className="form-control"
-                                                id="receiptId"
-                                                onChange={(e) => setReceiptId(e.target.value)}
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="">
-
-                                        <div className="input-field input-dokumen">
-                                            <div className="">
-                                                <FontAwesomeIcon icon={faListNumeric} className='icon' />
-                                            </div>
-                                            <input
-                                                type="number"
-                                                name="price1"
-                                                placeholder="No Dok"
-                                                className="form-control"
-                                                id="price1"
-                                                onChange={(e) => setPrice1(e.target.value)}
-                                                required
-                                            />
-                                        </div>
-                                        <div className="input-field input-dokumen">
-                                            <div className="">
-                                                <FontAwesomeIcon icon={faListNumeric} className='icon' />
-                                            </div>
-                                            <input
-                                                type="number"
-                                                name="price2"
-                                                placeholder="Hal"
-                                                className="form-control"
-                                                id="price2"
-                                                onChange={(e) => setPrice2(e.target.value)}
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="">
-
+                                    <div className="input-field input-dokumen">
                                         <div className="">
-
+                                            <FontAwesomeIcon icon={faNoteSticky} className='icon' />
                                         </div>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            className="form-control"
+                                            placeholder="Nama Perusahaan"
+                                            id="name"
+                                            onChange={(e) => setName(e.target.value)}
+                                            required
+                                        />
                                     </div>
-                                    <div className="btn-container">
-                                        <button onClick={handleSubmit} className="btn klausul">
-                                            Create PDF
-                                        </button>
+                                </div>
+
+                                <div className="">
+
+                                    <div className="input-field input-dokumen">
+                                        <div className="">
+                                            <FontAwesomeIcon icon={faListNumeric} className='icon' />
+                                        </div>
+                                        <input
+                                            type="number"
+                                            name="receiptId"
+                                            placeholder="No Rev"
+                                            className="form-control"
+                                            id="receiptId"
+                                            onChange={(e) => setReceiptId(e.target.value)}
+                                            required
+                                        />
                                     </div>
-                                </form>
+                                </div>
+                                <div className="">
+
+                                    <div className="input-field input-dokumen">
+                                        <div className="">
+                                            <FontAwesomeIcon icon={faListNumeric} className='icon' />
+                                        </div>
+                                        <input
+                                            type="number"
+                                            name="price1"
+                                            placeholder="No Dok"
+                                            className="form-control"
+                                            id="price1"
+                                            onChange={(e) => setPrice1(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="input-field input-dokumen">
+                                        <div className="">
+                                            <FontAwesomeIcon icon={faListNumeric} className='icon' />
+                                        </div>
+                                        <input
+                                            type="number"
+                                            name="price2"
+                                            placeholder="Hal"
+                                            className="form-control"
+                                            id="price2"
+                                            onChange={(e) => setPrice2(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="">
+
+                                    <div className="">
+
+                                    </div>
+                                </div>
+
+                                <div className="btn-container">
+
+
+                                    <button onClick={handleSubmit} className="btn klausul">
+                                        Create PDF
+                                    </button>
+
+
+
+                                </div>
+
                             </div>
                         </div>
-
-                    </div>
-                    <div className="recentCustomers">
-                        <img src="img/klausul9.svg" className="image" alt="" />
-                    </div>
+                    </Card>
                 </div>
-
             </div>
-            <Sidebar />
+
+
+
+            {/* <div className="recentCustomers">
+                        <img src="img/klausul9.svg" className="image" alt="" />
+                    </div> */}
         </>
     )
 }

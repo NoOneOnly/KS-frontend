@@ -8,6 +8,8 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { useGetUsersQuery } from "../users/usersApiSlice";
 import useTitle from "../../hooks/useTitle";
 import User from './User'
+import { Button, Card, Form, Tabs } from "antd";
+import PersonalInfo from "./PersonalInfo";
 
 
 
@@ -26,13 +28,18 @@ const UsersList = () => {
 
     const tableContent = ids?.length && ids.map(userId => <User key={userId} userId={userId} />)
 
+    const onFinish = () => {
 
+    }
 
+    const onChange = (key) => {
+        console.log(key);
+    };
 
     return (
         <>
 
-            <Topbar />
+
             <div className="main">
 
                 {/* cards */}
@@ -186,9 +193,12 @@ const UsersList = () => {
                     </div> */}
                 </div>
 
+
+
             </div>
 
-            <Sidebar />
+
+
             <div className="footer" >Copyright &copy; 2022 Tim UG. All rights reserved.</div>
         </>
     )

@@ -29,106 +29,137 @@ import Document8 from './features/klausul/Document8';
 import Document9 from './features/klausul/Document9';
 import Document10 from './features/klausul/Document10';
 
+import DahsboardV2 from './components/DahsboardV2';
+import { ContextProvider } from './contexts/ContextProvider';
+
+import { Ecommerce, Orders, Calendar, Employees, Stacked, Pyiramid, Customers, Kanban, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor } from '../src/Pages'
+import DashboardLayoutv2 from './components/DashboardLayoutv2';
+
+
 
 function App() {
   useTitle('SPD ISO 50001')
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        {/* public routes */}
-        <Route index element={<Login />} />
-        <Route path="login" element={<Login />} />
+    <ContextProvider>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* public routes */}
+          <Route index element={<Login />} />
+          <Route path="login" element={<Login />} />
+          <Route path="dashboardv2" element={<DahsboardV2 />} >
+            <Route index element={<Ecommerce />} />
+            <Route path="ecommerce" element={<Ecommerce />} />
+            {/* pages  */}
+            <Route path="orders" element={<Orders />} />
+            <Route path="employees" element={<Employees />} />
+            <Route path="customers" element={<Customers />} />
 
-        {/* Protected Routes */}
-        <Route element={<PersistLogin />}>
-          <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
-            <Route element={<Prefetch />}>
-              <Route path="dash" element={<DashLayout />}>
+            {/* apps  */}
+            <Route path="kanban" element={<Kanban />} />
+            <Route path="editor" element={<Editor />} />
+            <Route path="calendar" element={<Calendar />} />
+            <Route path="color-picker" element={<ColorPicker />} />
 
-                <Route index element={<Welcome />} />
 
-                <Route element={<RequireAuth allowedRoles={[ROLES.Manager, ROLES.Admin]} />}>
-                  <Route path="users">
-                    <Route index element={<UsersList />} />
-                    <Route path=":id" element={<EditUser />} />
-                    <Route path="new" element={<NewUserForm />} />
+
+          </Route>
+
+
+
+          {/* Protected Routes */}
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+              <Route element={<Prefetch />}>
+                <Route path="dash" element={<DashLayout />}>
+
+                  <Route index element={<Welcome />} />
+
+                  <Route element={<RequireAuth allowedRoles={[ROLES.Manager, ROLES.Admin]} />}>
+                    <Route path="users">
+                      <Route index element={<UsersList />} />
+                      <Route path=":id" element={<EditUser />} />
+                      <Route path="new" element={<NewUserForm />} />
+                    </Route>
+                  </Route>
+
+                  <Route path="notes">
+                    <Route index element={<NotesList />} />
+                    <Route path=":id" element={<EditNote />} />
+                    <Route path="new" element={<NewNote />} />
+                  </Route>
+
+                </Route>{/* End Dash */}
+
+                <Route element={<DashboardLayoutv2 />}>
+
+
+                  <Route path="dashboard" element={<NewDashLayout />}> {/*new dashboard*/}
+
+                    <Route index element={<Dashboard />} />
+
+                  </Route>
+                  <Route element={<RequireAuth allowedRoles={[ROLES.Manager, ROLES.Admin, ROLES.Employee]} />}>
+                    <Route path="userslists">
+                      <Route index element={<UsersList2 />} />
+                      <Route path=":id" element={<EditUser />} />
+                      <Route path="new" element={<NewUserForm />} />
+                    </Route>
+
+                    <Route path="klausul1">
+                      <Route index element={<Document1 />} />
+
+                    </Route>
+                    <Route path="klausul2">
+                      <Route index element={<Document2 />} />
+
+                    </Route>
+                    <Route path="klausul3">
+                      <Route index element={<Document3 />} />
+
+                    </Route>
+                    <Route path="klausul4">
+                      <Route index element={<Document4 />} />
+
+                    </Route>
+                    <Route path="klausul5">
+                      <Route index element={<Document5 />} />
+
+                    </Route>
+                    <Route path="klausul6">
+                      <Route index element={<Document6 />} />
+
+                    </Route>
+                    <Route path="klausul7">
+                      <Route index element={<Document7 />} />
+
+                    </Route>
+                    <Route path="klausul8">
+                      <Route index element={<Document8 />} />
+
+                    </Route>
+                    <Route path="klausul9">
+                      <Route index element={<Document9 />} />
+
+                    </Route>
+                    <Route path="klausul10">
+                      <Route index element={<Document10 />} />
+
+                    </Route>
+
+
                   </Route>
                 </Route>
 
-                <Route path="notes">
-                  <Route index element={<NotesList />} />
-                  <Route path=":id" element={<EditNote />} />
-                  <Route path="new" element={<NewNote />} />
-                </Route>
-
-              </Route>{/* End Dash */}
-
-              <Route path="dashboard" element={<NewDashLayout />}> {/*new dashboard*/}
-
-                <Route index element={<Dashboard />} />
-
-              </Route>
-              <Route element={<RequireAuth allowedRoles={[ROLES.Manager, ROLES.Admin, ROLES.Employee]} />}>
-                <Route path="userslists">
-                  <Route index element={<UsersList2 />} />
-                  <Route path=":id" element={<EditUser />} />
-                  <Route path="new" element={<NewUserForm />} />
-                </Route>
-
-                <Route path="klausul1">
-                  <Route index element={<Document1 />} />
-
-                </Route>
-                <Route path="klausul2">
-                  <Route index element={<Document2 />} />
-
-                </Route>
-                <Route path="klausul3">
-                  <Route index element={<Document3 />} />
-
-                </Route>
-                <Route path="klausul4">
-                  <Route index element={<Document4 />} />
-
-                </Route>
-                <Route path="klausul5">
-                  <Route index element={<Document5 />} />
-
-                </Route>
-                <Route path="klausul6">
-                  <Route index element={<Document6 />} />
-
-                </Route>
-                <Route path="klausul7">
-                  <Route index element={<Document7 />} />
-
-                </Route>
-                <Route path="klausul8">
-                  <Route index element={<Document8 />} />
-
-                </Route>
-                <Route path="klausul9">
-                  <Route index element={<Document9 />} />
-
-                </Route>
-                <Route path="klausul10">
-                  <Route index element={<Document10 />} />
-
-                </Route>
 
 
               </Route>
-
-
-
-
             </Route>
-          </Route>
-        </Route>{/* End Protected Routes */}
+          </Route>{/* End Protected Routes */}
 
-      </Route>
-    </Routes >
+        </Route>
+      </Routes >
+    </ContextProvider>
   );
 }
 

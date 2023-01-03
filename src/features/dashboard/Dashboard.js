@@ -40,11 +40,14 @@ const Dashboard = () => {
 
     };
 
+
+
     return (
         <>
 
+
             <div className="main">
-                <Topbar />
+
 
                 {/* cards */}
                 <div className="cardBox">
@@ -104,7 +107,7 @@ const Dashboard = () => {
 
 
 
-                <Sidebar />
+
 
 
             </div>

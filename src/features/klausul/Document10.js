@@ -7,7 +7,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 const Document10 = () => {
     return (
         <>
-            <Topbar />
+
             <div className="main">
 
                 {/* cards */}
@@ -64,7 +64,7 @@ const Document10 = () => {
                 </div>
 
             </div>
-            <Sidebar />
+
         </>
     )
 }

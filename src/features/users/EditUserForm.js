@@ -5,8 +5,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import { ROLES } from "../../config/roles"
 
+import { EditOutlined, EllipsisOutlined, SettingOutlined, DeleteOutlined } from '@ant-design/icons';
+
+import { Button, Card, Form, Input, Avatar } from 'antd';
+
+const { Meta } = Card;
+
+const onFinish = (values) => {
+    console.log('Success:', values);
+};
+const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+};
+
+
+
+
 const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
+
 
 const EditUserForm = ({ user }) => {
 
@@ -105,7 +122,7 @@ const EditUserForm = ({ user }) => {
         <>
             <p className={errClass}>{errContent}</p>
 
-            <form className="form" onSubmit={e => e.preventDefault()}>
+            {/* <form className="form" onSubmit={e => e.preventDefault()}>
                 <div className="form__title-row">
                     <h2>Edit User</h2>
                     <div className="form__action-buttons">
@@ -175,7 +192,88 @@ const EditUserForm = ({ user }) => {
                     {options}
                 </select>
 
-            </form>
+            </form> */}
+
+            <br />
+
+
+
+
+            <div className="details" id="edituser">
+                {/* detail list */}
+                <Card hoverable style={{ boxShadow: "0 7px 25px rgb(0 0 0 / 8%)", borderRadius: 20 }}>
+                    <h2>{username}</h2>
+                    <Form
+                        name="basic"
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 16 }}
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        autoComplete="off"
+
+                    >
+                        <Form.Item
+                            label="Username"
+                            name="username"
+                            rules={[{ required: true, message: 'Please input your username!' }]}
+                        >
+                            <Input />
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Password"
+                            name="password"
+                            rules={[{ required: true, message: 'Please input your password!' }]}
+                        >
+                            <Input.Password />
+                        </Form.Item>
+
+                        <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+
+                        </Form.Item>
+
+                        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                            <Button type="primary" htmlType="submit">
+                                Submit
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Card>
+
+
+                <Card
+                    hoverable
+                    style={{
+                        width: 300,
+                    }}
+                    cover={
+                        <img
+                            alt="example"
+                            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                        />
+                    }
+                    actions={[
+                        <DeleteOutlined key="delete" onClick={onDeleteUserClicked} />,
+
+                    ]}
+                >
+                    <Meta
+                        avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                        title={username}
+                        description={roles}
+                    />
+                </Card>
+            </div>
+
+
+
+
+
+
+
+
+
         </>
     )
 

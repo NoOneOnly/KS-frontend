@@ -4,9 +4,61 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faNoteSticky, faListNumeric } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
+import { InboxOutlined } from '@ant-design/icons';
+import { Card, Upload, message } from "antd";
+import fotoProfile from "../../images/default.svg"
+import { useGetUsersQuery } from '../users/usersApiSlice'
+
+
+
+
+
 
 
 const Document1 = () => {
+
+    const { users } = useGetUsersQuery("usersList", {
+        selectFromResult: ({ data }) => ({
+            users: data?.ids.map(id => data?.entities[id])
+        }),
+    })
+
+
+
+    const { Dragger } = Upload;
+    const props = {
+        name: 'file',
+        multiple: true,
+
+        data: {
+            'key': 'value' // masukin data userid dari sini ygy
+        },
+
+
+        action: 'http://localhost:4500/upload',
+        onChange(info) {
+            const { status } = info.file;
+            if (status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully.`);
+            } else if (status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+        onDrop(e) {
+            console.log('Dropped files', e.dataTransfer.files);
+        },
+    };
+
+
+
+
+
+
+
+
 
     const [name, setName] = useState("");
     const [receiptId, setReceiptId] = useState("")
@@ -15,29 +67,26 @@ const Document1 = () => {
 
     return (
         <>
-            <Topbar />
+
             <div className="main">
-                <div className="details">
+                <div className="details" id="klausul1">
                     {/* detail list */}
-                    <div className="recentOrders">
-                        <div className="cardHeader">
-                            <h2>Klausul 1</h2>
-                        </div>
+                    <Card style={{ boxShadow: "0 7px 25px rgb(0 0 0 / 8%)", borderRadius: 20 }}>
+                        <h2>Klausul 1</h2>
                         Dokumen ini menetapkan persyaratan untuk menetapkan, menerapkan, memelihara, dan meningkatkan sistem manajemen energi (EnMS). Hasil yang diinginkan adalah memungkinkan organisasi untuk mengikuti pendekatan sistematis dalam mencapai peningkatan berkelanjutan kinerja energi dan EnMS.
-                    </div>
-
-                    {/* New Customer */}
-                    <div className="recentCustomers">
-                        <div className="cardHeader">
-                            <h2>Scope (Ruang Lingkup) </h2>
-                        </div>
-
+                    </Card>
+                    <Card style={{ boxShadow: "0 7px 25px rgb(0 0 0 / 8%)", borderRadius: 20 }}>
+                        <h2>Scope (Ruang Lingkup)</h2>
                         <p>Dokumen ini menetapkan persyaratan untuk menetapkan, menerapkan, memelihara, dan meningkatkan sistem manajemen energi (EnMS). Hasil yang diinginkan adalah memungkinkan organisasi untuk mengikuti pendekatan sistematis dalam mencapai peningkatan berkelanjutan kinerja energi dan EnMS.
                         </p>
-
-                    </div>
+                    </Card>
                 </div>
-                <div className="details details-dokumen">
+
+
+                {/* New Customer */}
+
+
+                <div className="details details-dokumen" id="klausul1">
                     {/* detail list */}
                     <div className="recentOrders">
                         <div className="cardHeader">
@@ -113,17 +162,6 @@ const Document1 = () => {
                                         </div>
                                     </div>
 
-                                    <div className="">
-
-                                        <div className="">
-
-                                        </div>
-                                    </div>
-
-
-
-
-
                                     <div className="btn-container">
 
 
@@ -142,9 +180,23 @@ const Document1 = () => {
                     <div className="recentCustomers">
                         <img src="img/icon-document.svg" className="image" alt="" />
                     </div>
+
+                    <Card style={{ boxShadow: "0 7px 25px rgb(0 0 0 / 8%)", borderRadius: 20 }}>
+                        <h2>Upload files</h2>
+                        <Dragger {...props}>
+                            <p className="ant-upload-drag-icon">
+                                <InboxOutlined />
+                            </p>
+                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                            <p className="ant-upload-hint">
+                                Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+                                band files
+                            </p>
+                        </Dragger>
+                    </Card>
                 </div>
             </div>
-            <Sidebar />
+
         </>
     )
 }

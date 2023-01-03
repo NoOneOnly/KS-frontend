@@ -48,6 +48,8 @@ const Sidebar = () => {
                 Swal.fire('Logout Berhasil!', '', 'success')
                 sendLogout();
                 navigate("/login");
+            } else {
+                navigate("/dashboard");
             }
         })
 

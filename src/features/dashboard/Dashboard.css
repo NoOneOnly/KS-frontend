@@ -6,7 +6,7 @@
 }
 body {
     min-height: 100vh;
-    background: #efefe0;
+    /* background: #efefe0; */
 }
 .navigation {
     position: fixed;
@@ -24,7 +24,10 @@ body {
 
 .navigation::-webkit-scrollbar {
     display: none;
+ 
   }
+
+  
 
 a {
     text-decoration: none;
@@ -85,7 +88,8 @@ a {
     top: -20px;
     height: 20px;
     width: 100%;
-    background: #efefe0;
+    /* background: #efefe0; */
+    background: #fff;
     display: none;
 }
 .navigation ul li b:nth-child(1)::before
@@ -105,7 +109,8 @@ a {
     bottom: -20px;
     height: 20px;
     width: 100%;
-    background: #efefe0;
+    /* background: #efefe0; */
+    background: #fff;
     display: none;
 }
 .navigation ul li b:nth-child(2)::before
@@ -127,7 +132,8 @@ a {
 }
 
 .navigation ul li a.active {
-    background: #efefe0;
+    /* background: #efefe0; */
+    background: #fff;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 
@@ -235,7 +241,8 @@ a {
     /* width: calc(100%-70px); */
     left: 70px;
     min-height: 100vh;
-    background: #efefe0;
+    /* background: #efefe0; */
+    background: #fff;
     transition: 0.5s;
 }
 
@@ -345,6 +352,12 @@ a {
     grid-template-columns: 2fr 1fr;
     grid-gap: 30px;
     /* margin-top: 10px; */
+}
+
+.details#klausul1{
+    display: grid;
+    grid-template-columns: 1fr 1fr !important;
+   
 }
 
 .details .recentOrders 

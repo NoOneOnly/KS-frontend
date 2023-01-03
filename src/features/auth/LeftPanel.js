@@ -21,12 +21,12 @@ const LeftPanel = () => {
 
 
     const handleModeSignIn = () => {
-        const container = document.querySelector(".container");
+        const container = document.querySelector(".containerd");
 
         setModeHandle(container.classList.add("sign-up-mode"))
     }
     const handleModeSignUp = () => {
-        const container = document.querySelector(".container");
+        const container = document.querySelector(".containerd");
 
         setModeHandle(container.classList.remove("sign-up-mode"))
     }
