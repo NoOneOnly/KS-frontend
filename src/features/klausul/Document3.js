@@ -1,43 +1,157 @@
-import Sidebar from "../dashboard/Sidebar"
-import Topbar from "../dashboard/Topbar"
-import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from 'react';
+import { Col, Row, Card, Button, Form, Input, Select } from 'antd';
 
 
 const Document3 = () => {
+    const [activeTabKey1, setActiveTabKey1] = useState('tab1');
+
+
+    const onTab1Change = (key) => {
+        setActiveTabKey1(key);
+    };
+
+    const onFinish = async (values) => {
+
+        try {
+            console.log(values);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const tabList = [
+        {
+            key: 'tab1',
+            tab: 'Form Kebijakan Energi',
+        },
+        {
+            key: 'tab2',
+            tab: 'Form deskripsi spesifikasi pekerjaan tim manajemen energi',
+        },
+        {
+            key: 'tab3',
+            tab: 'Form struktur organisasi dan tim manajemen energi'
+        }
+    ];
+
+    const { Option } = Select;
+    const { TextArea } = Input;
+
+    const handleSelect = (value) => {
+        console.log(`selected ${value}`);
+        setPilihan(value);
+    };
+
+    const [pilihan, setPilihan] = useState('')
+
+    const contentList = {
+
+        tab1:
+            <p>
+                <h1>Form Kebijakan Energi </h1>
+                <br />
+
+            </p >,
+        tab2:
+            <p>
+                <h1>Form deskripsi spesifikasi pekerjaan tim manajemen energi </h1>
+                <br />
+                <Form layout="vertical" onFinish={onFinish} style={{ width: '100%' }} className="klausul">
+                    <Row align="start">
+                        <Col >
+                            <Form.Item
+                                name='jenisisu'
+                                label='Jenis Isu'
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please select Jenis ISU!',
+                                    },
+                                ]}
+                            >
+
+                                <Select placeholder="pilih jenis isu" onChange={handleSelect} >
+                                    <Option value="eksternal">Eksternal</Option>
+                                    <Option value="internal">Internal</Option>
+                                </Select>
+
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col >
+                            <Form.Item name='namaPT' label='Nama Interested parties' rules={[{ required: true }]}>
+                                <Input
+                                    style={{
+                                        width: '500px',
+                                    }}
+
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col >
+                            <Form.Item name='identitas' label='Identitas Interested parties' rules={[{ required: true }]}>
+                                <Input
+                                    style={{
+                                        width: '100%',
+                                    }}
+
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col >
+                            <Form.Item name='alamat' label='Alamat Interested parties' rules={[{ required: true }]}>
+                                <TextArea />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col >
+                            <Form.Item name='deskripsi' label='Deskripsi Persyaratan/Kebutuhan/Harapan interested parties' rules={[{ required: true }]}>
+                                <TextArea />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+                    <Button htmlType='submit' className='save'>Save</Button>
+
+
+                </Form>
+            </p >,
+        tab3: <p>
+            <h1>Form Struktur organisasi energi </h1>
+            <br />
+
+        </p >,
+    };
+
     return (
         <>
+            <div className="main" style={{ 'left': "110px" }}>
 
-            <div className="main">
-                <div className="details">
-                    {/* detail list */}
-                    <div className="recentOrders">
-                        <div className="cardHeader">
-                            <h2>Klausul 3</h2>
-                        </div>
-                        <h1>Istilah dan Definisi</h1>
-                        <p>
-                            <b>3.1</b> Terms related to organization <br />
-                            <b>3.2</b> Terms related to management system <br />
-                            <b>3.3</b> Terms related to requirement <br />
-                            <b>3.4</b> Terms related to performance <br />
-                            <b>3.5</b> Terms related to energy <br />
-                        </p>
-                    </div>
+                <Row>
+                    <Col span={21}>
+                        <Card
+                            hoverable
+                            style={{
+                                width: '100%',
+                            }}
+                            title="Klausul 3 Kepemimpinan"
 
-                    {/* New Customer */}
-                    <div className="recentCustomers">
-                        <div className="cardHeader">
-                            <h2>Terms and definitions (Istilah dan Definisi) </h2>
-                        </div>
-                        <table>
-                            Under Construction
-                        </table>
-
-                    </div>
-                </div>
-
+                            tabList={tabList}
+                            activeTabKey={activeTabKey1}
+                            onTabChange={(key) => {
+                                onTab1Change(key);
+                            }}
+                        >
+                            {contentList[activeTabKey1]}
+                        </Card>
+                    </Col>
+                </Row>
             </div>
 
         </>

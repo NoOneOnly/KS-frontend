@@ -1,0 +1,10 @@
+form#profile{
+    align-items: flex-start;
+}
+
+.btnsbmt{
+    background-color: #4d5bf9 !important;
+}
+.btnsbmt:hover{
+    background-color: #1727d6!important;
+}

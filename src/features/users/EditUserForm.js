@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import { ROLES } from "../../config/roles"
 
-import { EditOutlined, EllipsisOutlined, SettingOutlined, DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined } from '@ant-design/icons';
 
 import { Button, Card, Form, Input, Avatar } from 'antd';
 
@@ -116,6 +116,14 @@ const EditUserForm = ({ user }) => {
     const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
 
     const errContent = (error?.data?.message || delerror?.data?.message) ?? ''
+
+    const deleteIconStyles = {
+        fontSize: '16px',
+        color: 'red',
+        ':hover': {
+            color: 'blue'
+        }
+    };
 
 
     const content = (
@@ -254,11 +262,12 @@ const EditUserForm = ({ user }) => {
                         />
                     }
                     actions={[
-                        <DeleteOutlined key="delete" onClick={onDeleteUserClicked} />,
+                        <DeleteOutlined className="deleteIcon" style={deleteIconStyles} key="delete" onClick={onDeleteUserClicked} />,
 
                     ]}
                 >
                     <Meta
+                        className="cardMeta"
                         avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                         title={username}
                         description={roles}

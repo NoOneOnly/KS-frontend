@@ -29,11 +29,13 @@ import Document8 from './features/klausul/Document8';
 import Document9 from './features/klausul/Document9';
 import Document10 from './features/klausul/Document10';
 
+
 import DahsboardV2 from './components/DahsboardV2';
 import { ContextProvider } from './contexts/ContextProvider';
 
 import { Ecommerce, Orders, Calendar, Employees, Stacked, Pyiramid, Customers, Kanban, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor } from '../src/Pages'
 import DashboardLayoutv2 from './components/DashboardLayoutv2';
+import Profile from './features/profile/profile';
 
 
 
@@ -104,6 +106,9 @@ function App() {
                       <Route index element={<UsersList2 />} />
                       <Route path=":id" element={<EditUser />} />
                       <Route path="new" element={<NewUserForm />} />
+                    </Route>
+                    <Route path="profile">
+                      <Route index element={<Profile />} />
                     </Route>
 
                     <Route path="klausul1">

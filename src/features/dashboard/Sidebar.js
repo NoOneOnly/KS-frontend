@@ -84,6 +84,16 @@ const Sidebar = () => {
                         </NavLink>
                     </li>
                     <li className="list">
+                        <NavLink exact to="/profile" activeClassName="active">
+                            <b></b>
+                            <b></b>
+                            <span className="icon">
+                                <FontAwesomeIcon icon={faUser} className="icd" />
+                            </span>
+                            <span className="titles">Profile</span>
+                        </NavLink>
+                    </li>
+                    <li className="list">
                         <NavLink exact to="/userslists" activeClassName="active">
                             <b></b>
                             <b></b>

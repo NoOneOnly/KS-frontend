@@ -31,9 +31,9 @@ const Dashboard = () => {
             showCancelButton: true
         }).then(async (result) => {
             if (result.isConfirmed) {
-                Swal.fire('Logout Berhasil!', '', 'success')
                 sendLogout();
                 navigate("/login");
+                Swal.fire('Logout Berhasil!', '', 'success')
             }
         })
 

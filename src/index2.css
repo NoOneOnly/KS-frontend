@@ -230,6 +230,10 @@ form {
   grid-row: 1 / 2;
 }
 
+form.klausul{
+  align-items: flex-start;
+}
+
 form.dokumen{
   padding: 0 !important;
   align-items: normal;
@@ -516,6 +520,8 @@ form.dokumen .input-field{
 .containerd.sign-up-mode .right-panel {
   pointer-events: all;
 }
+
+
 
 @media (max-width: 870px) {
   .containerd {

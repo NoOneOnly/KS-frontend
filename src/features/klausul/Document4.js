@@ -4,7 +4,11 @@ import { faNoteSticky, faListNumeric } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 import axios from "../../app/api/axios";
 import { saveAs } from 'file-saver'
-import { Card } from "antd";
+import { Col, Row, Card, Button, Form, Input, Select, Radio, Space } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { DownloadOutlined } from '@ant-design/icons';
+
+import "./Document4.css"
 
 
 const DATA_URL = '/document4'
@@ -50,6 +54,106 @@ const Document4 = () => {
         }
     }
 
+    const formPenilaian = async (e) => {
+        e.preventDefault();
+        try {
+            axios({
+                url: 'http://localhost:4500/templates/formpenilaian',
+                method: 'GET',
+                responseType: 'blob', // important
+            }).then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Form_Penilaian.xlsx');
+                document.body.appendChild(link);
+                link.click();
+            });
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+    const formKriteria = async (e) => {
+        e.preventDefault();
+        try {
+            axios({
+                url: 'http://localhost:4500/templates/formkriteria',
+                method: 'GET',
+                responseType: 'blob', // important
+            }).then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Form_Kriteria.xlsx');
+                document.body.appendChild(link);
+                link.click();
+            });
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+    const formPenggunaanEnergi = async (e) => {
+        e.preventDefault();
+        try {
+            axios({
+                url: 'http://localhost:4500/templates/formpenggunaan',
+                method: 'GET',
+                responseType: 'blob', // important
+            }).then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Form_Pengunaan energi.xlsx');
+                document.body.appendChild(link);
+                link.click();
+            });
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+    const formPerencanaanPengumpulan = async (e) => {
+        e.preventDefault();
+        try {
+            axios({
+                url: 'http://localhost:4500/templates/formperencanaan',
+                method: 'GET',
+                responseType: 'blob', // important
+            }).then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Form_Perencenaan_Pengumpulan_data_energi.xlsx');
+                document.body.appendChild(link);
+                link.click();
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    const formJenisdanAplikasiEnpi = async (e) => {
+        e.preventDefault();
+        try {
+            axios({
+                url: 'http://localhost:4500/templates/formjenisaplikasienpi',
+                method: 'GET',
+                responseType: 'blob', // important
+            }).then((response) => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'Form_Jenis dan Aplikasi Enpi.xlsx');
+                document.body.appendChild(link);
+                link.click();
+            });
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -83,6 +187,309 @@ const Document4 = () => {
 
 
     };
+
+
+
+    const [activeTabKey1, setActiveTabKey1] = useState('tab1');
+
+
+    const onTab1Change = (key) => {
+        setActiveTabKey1(key);
+    };
+
+    const onFinish = async (values) => {
+
+        try {
+            console.log(values);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const tabList = [
+        {
+            key: 'tab1',
+            tab: 'Form kriteria risiko energi',
+        },
+        {
+            key: 'tab2',
+            tab: 'Form penilaian risiko energi',
+        },
+        {
+            key: 'tab3',
+            tab: 'Form tujuan, target, dan rencana tindakan'
+        },
+        {
+            key: 'tab4',
+            tab: 'Form tinjauan energi_format rinci'
+        },
+        {
+            key: 'tab5',
+            tab: 'Form tinjauan energi_format garis besar'
+        },
+        {
+            key: 'tab6',
+            tab: 'Form penggunaan energi signifikan SEU'
+        },
+        {
+            key: 'tab7',
+            tab: 'Form perencanaan pengumpulan data energi'
+        },
+        {
+            key: 'tab8',
+            tab: 'Form jenis dan aplikasi EnPI_contoh'
+        },
+        {
+            key: 'tab9',
+            tab: 'Form penggunaan dan tujuan EnPI_contoh'
+        },
+    ];
+
+    const { Option } = Select;
+    const { TextArea } = Input;
+
+    const handleSelect = (value) => {
+        console.log(`selected ${value}`);
+        setPilihan(value);
+    };
+
+    const [pilihan, setPilihan] = useState('')
+
+    const contentList = {
+
+        tab1:
+            <p>
+                <h1>Form kriteria risiko energi </h1>
+                <br />
+                <Form layout="vertical" onFinish={onFinish} style={{ width: '100%' }} className="klausul">
+                    <Col >
+                        <Form.List name="education">
+                            {(fields, { add, remove }) => (
+                                <>
+                                    {fields.map(({ key, name, ...restField }) => (
+                                        <>
+                                            <Row>
+
+                                                <Col >
+
+                                                    <Form.Item
+                                                        {...restField}
+                                                        name={[name, 'aspekResiko']}
+                                                        rules={[
+                                                            {
+                                                                required: true,
+                                                                message: 'Missing Aspek Resiko Energi',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Input
+                                                            style={{
+                                                                width: '500px',
+                                                            }}
+                                                            placeholder="Aspek Resiko Energi" />
+                                                    </Form.Item>
+                                                </Col>
+
+
+                                                <Col offset={1}>
+
+                                                    <Form.Item
+                                                        {...restField}
+
+                                                        name={[name, 'radio']}
+                                                        rules={[
+                                                            {
+                                                                required: true,
+                                                                message: 'Missing radio',
+                                                            },
+                                                        ]}
+                                                    >
+                                                        <Radio.Group>
+                                                            <Radio value="jarang"> Jarang </Radio>
+                                                            <Radio value="kecilKemungkinan"> Kecil Kemungkinan </Radio>
+                                                            <Radio value="mungkin"> Mungkin </Radio>
+                                                            <Radio value="terjadi">Cenderung Terjadi </Radio>
+                                                            <Radio value="selalu"> Selalu Terjadi </Radio>
+                                                        </Radio.Group>
+                                                    </Form.Item>
+                                                </Col>
+
+
+
+                                                <Col offset={1}>
+                                                    <MinusCircleOutlined style={{ fontSize: 25, color: 'tomato' }} onClick={() => remove(name)} />
+                                                </Col>
+
+
+
+
+
+
+                                            </Row>
+                                        </>
+                                    ))}
+
+
+                                    <Form.Item>
+                                        <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                                            Tambah Resiko Energi
+                                        </Button>
+                                    </Form.Item>
+                                </>
+                            )}
+                        </Form.List>
+                    </Col>
+                    <Space direction="vertical">
+                        <Space wrap>
+                            <Button htmlType='submit' className='save'>Save</Button>
+                            <Button className="btnsbmt" onClick={formKriteria} type="primary" shape="round" icon={<DownloadOutlined />} size={"large"}>
+                                Template
+                            </Button>
+                        </Space>
+                    </Space>
+                </Form>
+
+            </p >,
+        tab2:
+            <p>
+                <h1>Form penilaian risiko energi </h1>
+                <br />
+                <Form layout="vertical" onFinish={onFinish} style={{ width: '100%' }} className="klausul">
+                    <Row align="start">
+                        <Col >
+                            <Form.Item
+                                name='jenisisu'
+                                label='Jenis Isu'
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please select Jenis ISU!',
+                                    },
+                                ]}
+                            >
+
+                                <Select placeholder="pilih jenis isu" onChange={handleSelect} >
+                                    <Option value="eksternal">Eksternal</Option>
+                                    <Option value="internal">Internal</Option>
+                                </Select>
+
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col >
+                            <Form.Item name='namaPT' label='Nama Interested parties' rules={[{ required: true }]}>
+                                <Input
+                                    style={{
+                                        width: '500px',
+                                    }}
+
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col >
+                            <Form.Item name='identitas' label='Identitas Interested parties' rules={[{ required: true }]}>
+                                <Input
+                                    style={{
+                                        width: '100%',
+                                    }}
+
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col >
+                            <Form.Item name='alamat' label='Alamat Interested parties' rules={[{ required: true }]}>
+                                <TextArea />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col >
+                            <Form.Item name='deskripsi' label='Deskripsi Persyaratan/Kebutuhan/Harapan interested parties' rules={[{ required: true }]}>
+                                <TextArea />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+                    <Space direction="vertical">
+                        <Space wrap>
+                            <Button htmlType='submit' className='save'>Save</Button>
+                            <Button className="btnsbmt" onClick={formPenilaian} type="primary" shape="round" icon={<DownloadOutlined />} size={"large"}>
+                                Template
+                            </Button>
+                        </Space>
+                    </Space>
+                </Form>
+            </p >,
+        tab3: <p>
+            <h1>Form Struktur organisasi energi </h1>
+            <br />
+
+        </p >,
+        tab4: <p>
+            <h1>Form tinjauan energi format rinci </h1>
+            <br />
+
+        </p >,
+        tab5: <p>
+            <h1>Form tinjauan energi format garis besar </h1>
+            <br />
+
+        </p >,
+        tab6: <p>
+            <h1>Form penggunaan energi signifikan SEU </h1>
+            <br />
+
+
+            <Space direction="vertical">
+                <Space wrap>
+                    <Button htmlType='submit' className='save'>Save</Button>
+                    <Button className="btnsbmt" onClick={formPenggunaanEnergi} type="primary" shape="round" icon={<DownloadOutlined />} size={"large"}>
+                        Template
+                    </Button>
+                </Space>
+            </Space>
+
+        </p >,
+        tab7: <p>
+            <h1>Form Perencanaan Pengumpulan data energi </h1>
+            <br />
+
+
+            <Space direction="vertical">
+                <Space wrap>
+                    <Button htmlType='submit' className='save'>Save</Button>
+                    <Button className="btnsbmt" onClick={formPerencanaanPengumpulan} type="primary" shape="round" icon={<DownloadOutlined />} size={"large"}>
+                        Template
+                    </Button>
+                </Space>
+            </Space>
+
+        </p >,
+        tab8: <p>
+            <h1>Form Jenis dan Aplikasi Enpi </h1>
+            <br />
+
+
+            <Space direction="vertical">
+                <Space wrap>
+                    <Button htmlType='submit' className='save'>Save</Button>
+                    <Button className="btnsbmt" onClick={formJenisdanAplikasiEnpi} type="primary" shape="round" icon={<DownloadOutlined />} size={"large"}>
+                        Template
+                    </Button>
+                </Space>
+            </Space>
+
+        </p >,
+
+
+
+    };
+
 
 
 
@@ -256,6 +663,27 @@ const Document4 = () => {
                             </div>
                         </div>
                     </Card>
+                </div>
+                <div className="details" id="klausul4">
+                    <Row>
+                        <Col span={24} >
+                            <Card
+                                hoverable
+                                style={{
+                                    width: '100%',
+                                }}
+                                title="Klausul 4 Perencanaan"
+
+                                tabList={tabList}
+                                activeTabKey={activeTabKey1}
+                                onTabChange={(key) => {
+                                    onTab1Change(key);
+                                }}
+                            >
+                                {contentList[activeTabKey1]}
+                            </Card>
+                        </Col>
+                    </Row>
                 </div>
             </div>
         </>

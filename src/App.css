@@ -46,6 +46,11 @@
   border: none;
 }
 
+.btnBiru{
+  background-color: #1677ff !important;
+
+}
+
 .bg-hero-pattern{
   background-image: url('data/welcome-bg.svg')
 }

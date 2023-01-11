@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Sidebar from "../dashboard/Sidebar"
-import Topbar from "../dashboard/Topbar"
+
 
 import { React } from 'react';
 import { NavLink } from "react-router-dom";
@@ -199,7 +198,7 @@ const UsersList = () => {
 
 
 
-            <div className="footer" >Copyright &copy; 2022 Tim UG. All rights reserved.</div>
+
         </>
     )
 }

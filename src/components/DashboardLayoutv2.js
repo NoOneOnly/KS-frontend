@@ -14,6 +14,7 @@ const DashboardLayoutv2 = () => {
                 <Outlet />
 
             </div>
+            <div className="footer" >Copyright &copy; 2022 Tim UG. All rights reserved.</div>
 
         </div>
 

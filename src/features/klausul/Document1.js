@@ -1,14 +1,13 @@
-import Sidebar from "../dashboard/Sidebar"
-import Topbar from "../dashboard/Topbar"
-import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faNoteSticky, faListNumeric } from '@fortawesome/free-solid-svg-icons';
+
 import { useState } from "react";
 import { InboxOutlined } from '@ant-design/icons';
-import { Card, Upload, message } from "antd";
 import fotoProfile from "../../images/default.svg"
 import { useGetUsersQuery } from '../users/usersApiSlice'
+import useAuth from "../../hooks/useAuth";
 
+
+import { Card, Upload, message, Button, Divider, Radio, Space } from "antd";
+import { DownloadOutlined } from '@ant-design/icons';
 
 
 
@@ -16,6 +15,8 @@ import { useGetUsersQuery } from '../users/usersApiSlice'
 
 
 const Document1 = () => {
+
+    const { userId } = useAuth()
 
     const { users } = useGetUsersQuery("usersList", {
         selectFromResult: ({ data }) => ({
@@ -31,7 +32,7 @@ const Document1 = () => {
         multiple: true,
 
         data: {
-            'key': 'value' // masukin data userid dari sini ygy
+            'user': userId // masukin data userid dari sini ygy
         },
 
 
@@ -88,95 +89,7 @@ const Document1 = () => {
 
                 <div className="details details-dokumen" id="klausul1">
                     {/* detail list */}
-                    <div className="recentOrders">
-                        <div className="cardHeader">
-                            <h2>Halaman Klausul 1</h2>
-                        </div>
-                        <div className="form-container">
-                            <div className="form-input">
-                                <form className='dokumen'>
-                                    <div className="">
 
-                                        <div className="input-field input-dokumen">
-                                            <div className="">
-                                                <FontAwesomeIcon icon={faNoteSticky} className='icon' />
-                                            </div>
-                                            <input
-                                                type="text"
-                                                name="name"
-                                                className="form-control"
-                                                placeholder="Nama Perusahaan"
-                                                id="name"
-                                                onChange={(e) => setName(e.target.value)}
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="">
-
-                                        <div className="input-field input-dokumen">
-                                            <div className="">
-                                                <FontAwesomeIcon icon={faListNumeric} className='icon' />
-                                            </div>
-                                            <input
-                                                type="number"
-                                                name="receiptId"
-                                                placeholder="No Rev"
-                                                className="form-control"
-                                                id="receiptId"
-                                                onChange={(e) => setReceiptId(e.target.value)}
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="">
-
-                                        <div className="input-field input-dokumen">
-                                            <div className="">
-                                                <FontAwesomeIcon icon={faListNumeric} className='icon' />
-                                            </div>
-                                            <input
-                                                type="number"
-                                                name="price1"
-                                                placeholder="No Dok"
-                                                className="form-control"
-                                                id="price1"
-                                                onChange={(e) => setPrice1(e.target.value)}
-                                                required
-                                            />
-                                        </div>
-                                        <div className="input-field input-dokumen">
-                                            <div className="">
-                                                <FontAwesomeIcon icon={faListNumeric} className='icon' />
-                                            </div>
-                                            <input
-                                                type="number"
-                                                name="price2"
-                                                placeholder="Hal"
-                                                className="form-control"
-                                                id="price2"
-                                                onChange={(e) => setPrice2(e.target.value)}
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="btn-container">
-
-
-                                        <button className="btn klausul">
-                                            Create PDF
-                                        </button>
-
-
-
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
                     <div className="recentCustomers">
                         <img src="img/icon-document.svg" className="image" alt="" />
                     </div>
@@ -195,6 +108,19 @@ const Document1 = () => {
                         </Dragger>
                     </Card>
                 </div>
+
+                <div className="details">
+
+                    <Space direction="vertical">
+                        <Space wrap>
+                            <Button className="btnsbmt" type="primary" shape="round" icon={<DownloadOutlined />} size={"large"}>
+                                Template
+                            </Button>
+                        </Space>
+                    </Space>
+                </div>
+
+
             </div>
 
         </>
