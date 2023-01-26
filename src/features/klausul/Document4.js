@@ -163,14 +163,10 @@ const Document4 = () => {
                 DATA_URL,
                 JSON.stringify({ name, receiptId, price1, price2, subSatu, subDua, subTiga, subEmpat }),//data.img baseFile
 
-                {
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    withCredentials: true,
-                }
+
             ).then(getDokumen)
 
+            console.log(response);
 
         } catch (err) {
             if (!err?.response) {
