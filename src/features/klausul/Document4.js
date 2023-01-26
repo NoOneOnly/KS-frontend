@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faNoteSticky, faListNumeric } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
-import axios from "../../app/api/axios";
+import axios, { axiosPrivate } from "../../app/api/axios";
 import { saveAs } from 'file-saver'
 import { Col, Row, Card, Button, Form, Input, Select, Radio, Space } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
@@ -39,7 +39,7 @@ const Document4 = () => {
 
     const getDokumen = async () => {
         try {
-            const response = await axios.get('/document4', {
+            const response = await axiosPrivate.get('/document4', {
                 signal: controller.signal
             }).then((res) => {
                 const pdfBlob = new Blob([res.data], { type: 'application/pdf' }); //type: "text/plain;charset=utf-8"} { type: 'application/pdf' }
@@ -156,14 +156,17 @@ const Document4 = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-
         try {
             const response = await axios.post(
                 DATA_URL,
                 JSON.stringify({ name, receiptId, price1, price2, subSatu, subDua, subTiga, subEmpat }),//data.img baseFile
 
-
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    withCredentials: true,
+                }
             ).then(getDokumen)
 
             console.log(response);
