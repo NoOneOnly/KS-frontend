@@ -1,5 +1,4 @@
-import Sidebar from "../dashboard/Sidebar"
-import Topbar from "../dashboard/Topbar"
+
 import { useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faNoteSticky, faListNumeric } from '@fortawesome/free-solid-svg-icons';

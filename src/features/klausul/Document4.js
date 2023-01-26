@@ -58,7 +58,7 @@ const Document4 = () => {
         e.preventDefault();
         try {
             axios({
-                url: 'http://localhost:4500/templates/formpenilaian',
+                url: '/templates/formpenilaian',
                 method: 'GET',
                 responseType: 'blob', // important
             }).then((response) => {
@@ -78,7 +78,7 @@ const Document4 = () => {
         e.preventDefault();
         try {
             axios({
-                url: 'http://localhost:4500/templates/formkriteria',
+                url: '/templates/formkriteria',
                 method: 'GET',
                 responseType: 'blob', // important
             }).then((response) => {
@@ -98,7 +98,7 @@ const Document4 = () => {
         e.preventDefault();
         try {
             axios({
-                url: 'http://localhost:4500/templates/formpenggunaan',
+                url: '/templates/formpenggunaan',
                 method: 'GET',
                 responseType: 'blob', // important
             }).then((response) => {
@@ -137,7 +137,7 @@ const Document4 = () => {
         e.preventDefault();
         try {
             axios({
-                url: 'http://localhost:4500/templates/formjenisaplikasienpi',
+                url: '/templates/formjenisaplikasienpi',
                 method: 'GET',
                 responseType: 'blob', // important
             }).then((response) => {

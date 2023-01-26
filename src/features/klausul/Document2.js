@@ -36,7 +36,7 @@ const Document2 = () => {
         e.preventDefault();
         try {
             axios({
-                url: 'https://spdsoftware-api.onrender.com/templates/formkebutuhan',
+                url: '/templates/formkebutuhan',
                 method: 'GET',
                 responseType: 'blob', // important
             }).then((response) => {
