@@ -12,7 +12,7 @@ import LeftPanel from './LeftPanel'
 import Register from './Register'
 import Swal from 'sweetalert2';
 import './Login.css'
-import fileDownload from 'js-file-download'
+
 import axios from "../../app/api/axios";
 
 const Login = () => {
@@ -113,7 +113,7 @@ const Login = () => {
 
         try {
             axios({
-                url: 'http://localhost:4500/manualbook',
+                url: 'https://spdsoftware-api.onrender.com/manualbook',
                 method: 'GET',
                 responseType: 'blob', // important
             }).then((response) => {

@@ -31,45 +31,12 @@ const Document2 = () => {
 
 
 
-    const formIsu = async (e) => {
-        e.preventDefault();
 
-        try {
-            axios({
-                url: 'http://localhost:4500/templates/formisu',
-                method: 'GET',
-                responseType: 'blob', // important
-            }).then((response) => {
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', 'Form_Isu.xlsx');
-                document.body.appendChild(link);
-                link.click();
-            });
-
-
-            // const response = await axios.get(
-            //     DOWNLOAD_URL,
-            //     { responseType: "blob" }
-            // ).then((res) => {
-            //     const url = window.URL.createObjectURL(new Blob([res.data]));
-            //     const link = document.createElement('a');
-            //     link.href = url;
-            //     link.setAttribute('download', 'file.pdf');
-            //     document.body.appendChild(link);
-            //     link.click();
-            // })
-        } catch (err) {
-
-        }
-
-    }
     const formKebutuhan = async (e) => {
         e.preventDefault();
         try {
             axios({
-                url: 'http://localhost:4500/templates/formkebutuhan',
+                url: 'https://spdsoftware-api.onrender.com/templates/formkebutuhan',
                 method: 'GET',
                 responseType: 'blob', // important
             }).then((response) => {
@@ -91,14 +58,7 @@ const Document2 = () => {
         setActiveTabKey1(key);
     };
 
-    const onFinishFormIsu = async (values) => {
 
-        try {
-            console.log(values);
-        } catch (error) {
-            console.log(error);
-        }
-    }
     const onFinishFormKebutuhan = async (values) => {
 
         try {

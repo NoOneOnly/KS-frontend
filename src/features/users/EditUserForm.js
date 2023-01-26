@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react"
 import { useUpdateUserMutation, useDeleteUserMutation } from "./usersApiSlice"
 import { useNavigate } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
-import { ROLES } from "../../config/roles"
+
+// import { ROLES } from "../../config/roles"
 
 import { DeleteOutlined } from '@ant-design/icons';
 
@@ -47,7 +46,7 @@ const EditUserForm = ({ user }) => {
     const [password, setPassword] = useState('')
     const [validPassword, setValidPassword] = useState(false)
     const [roles, setRoles] = useState(user.roles)
-    const [active, setActive] = useState(user.active)
+    // const [active, setActive] = useState(user.active)
 
     useEffect(() => {
         setValidUsername(USER_REGEX.test(username))
@@ -68,40 +67,40 @@ const EditUserForm = ({ user }) => {
 
     }, [isSuccess, isDelSuccess, navigate])
 
-    const onUsernameChanged = e => setUsername(e.target.value)
-    const onPasswordChanged = e => setPassword(e.target.value)
+    // const onUsernameChanged = e => setUsername(e.target.value)
+    // const onPasswordChanged = e => setPassword(e.target.value)
 
-    const onRolesChanged = e => {
-        const values = Array.from(
-            e.target.selectedOptions,
-            (option) => option.value
-        )
-        setRoles(values)
-    }
+    // const onRolesChanged = e => {
+    //     const values = Array.from(
+    //         e.target.selectedOptions,
+    //         (option) => option.value
+    //     )
+    //     setRoles(values)
+    // }
 
-    const onActiveChanged = () => setActive(prev => !prev)
+    // const onActiveChanged = () => setActive(prev => !prev)
 
-    const onSaveUserClicked = async (e) => {
-        if (password) {
-            await updateUser({ id: user.id, username, password, roles, active })
-        } else {
-            await updateUser({ id: user.id, username, roles, active })
-        }
-    }
+    // const onSaveUserClicked = async (e) => {
+    //     if (password) {
+    //         await updateUser({ id: user.id, username, password, roles, active })
+    //     } else {
+    //         await updateUser({ id: user.id, username, roles, active })
+    //     }
+    // }
 
     const onDeleteUserClicked = async () => {
         await deleteUser({ id: user.id })
     }
 
-    const options = Object.values(ROLES).map(role => {
-        return (
-            <option
-                key={role}
-                value={role}
+    // const options = Object.values(ROLES).map(role => {
+    //     return (
+    //         <option
+    //             key={role}
+    //             value={role}
 
-            > {role}</option >
-        )
-    })
+    //         > {role}</option >
+    //     )
+    // })
 
     let canSave
     if (password) {

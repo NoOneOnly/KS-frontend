@@ -118,7 +118,7 @@ const Document4 = () => {
         e.preventDefault();
         try {
             axios({
-                url: 'http://localhost:4500/templates/formperencanaan',
+                url: '/templates/formperencanaan',
                 method: 'GET',
                 responseType: 'blob', // important
             }).then((response) => {

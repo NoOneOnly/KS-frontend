@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+
 import useTitle from "../../hooks/useTitle";
 
 import { Button, Card, Form, Input, Avatar, Checkbox } from 'antd';
@@ -36,12 +36,7 @@ const Profile = () => {
 
 
 
-    const [updateUser, {
-        isLoading,
-        isSuccess,
-        isError,
-        error
-    }] = useUpdateUserMutation()
+    const [updateUser] = useUpdateUserMutation()
 
     // const onSaveUserClicked = async (e) => {
     //     if (password) {

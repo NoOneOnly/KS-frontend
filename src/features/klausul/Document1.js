@@ -36,7 +36,7 @@ const Document1 = () => {
         },
 
 
-        action: 'http://localhost:4500/upload',
+        action: 'https://spdsoftware-api.onrender.com/upload',
         onChange(info) {
             const { status } = info.file;
             if (status !== 'uploading') {

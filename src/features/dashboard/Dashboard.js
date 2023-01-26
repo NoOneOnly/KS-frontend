@@ -2,8 +2,7 @@
 import React from 'react'
 import './Dashboard.css';
 
-import Sidebar from './Sidebar';
-import Topbar from './Topbar';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import VerticalChart from './VerticalChart';

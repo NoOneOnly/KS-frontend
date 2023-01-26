@@ -35,7 +35,7 @@ const CreateFormIsuComponent = () => {
 
         try {
             axios({
-                url: 'http://localhost:4500/templates/formisu',
+                url: '/templates/formisu',
                 method: 'GET',
                 responseType: 'blob', // important
             }).then((response) => {
