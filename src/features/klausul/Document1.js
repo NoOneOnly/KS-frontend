@@ -1,13 +1,15 @@
 
-import { useState } from "react";
+
 import { InboxOutlined } from '@ant-design/icons';
-import fotoProfile from "../../images/default.svg"
-import { useGetUsersQuery } from '../users/usersApiSlice'
+
+// import { useGetUsersQuery } from '../users/usersApiSlice'
 import useAuth from "../../hooks/useAuth";
 
 
-import { Card, Upload, message, Button, Divider, Radio, Space } from "antd";
+import { Card, Upload, message, Button, Space } from "antd";
 import { DownloadOutlined } from '@ant-design/icons';
+import ShowDokumens from '../dokumens/ShowDokumens';
+import Swal from 'sweetalert2';
 
 
 
@@ -16,34 +18,54 @@ import { DownloadOutlined } from '@ant-design/icons';
 
 const Document1 = () => {
 
-    const { userId } = useAuth()
+    const { userId, docs } = useAuth()
 
-    const { users } = useGetUsersQuery("usersList", {
-        selectFromResult: ({ data }) => ({
-            users: data?.ids.map(id => data?.entities[id])
-        }),
-    })
+    // const { users } = useGetUsersQuery("usersList", {
+    //     selectFromResult: ({ data }) => ({
+    //         users: data?.ids.map(id => data?.entities[id])
+    //     }),
+    // })
 
 
 
     const { Dragger } = Upload;
     const props = {
         name: 'file',
-        multiple: true,
+        // multiple: true,
 
         data: {
-            'user': userId // masukin data userid dari sini ygy
+            'user': userId, // masukin data userid dari sini ygy
+            'namafile': 'klausul1',
+            'ekstension': 'pdf'
         },
 
 
-        action: 'https://spdsoftware-api.onrender.com/upload',
+
+
+        // action: 'https://spdsoftware-api.onrender.com/upload',
+        action: 'http://localhost:4500/upload',
         onChange(info) {
             const { status } = info.file;
             if (status !== 'uploading') {
                 console.log(info.file, info.fileList);
             }
             if (status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully.`);
+                // message.success(`${info.file.name} file uploaded successfully.`);
+                Swal.fire({
+                    title: 'Upload success',
+                    icon: 'success',
+
+
+                    confirmButtonText: 'OK',
+
+                }).then(async (result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        // await Swal.fire('Saved!', '', 'success')
+                        window.location.reload()
+                    }
+                })
+                // window.location.reload();
             } else if (status === 'error') {
                 message.error(`${info.file.name} file upload failed.`);
             }
@@ -54,17 +76,6 @@ const Document1 = () => {
     };
 
 
-
-
-
-
-
-
-
-    const [name, setName] = useState("");
-    const [receiptId, setReceiptId] = useState("")
-    const [price1, setPrice1] = useState("")
-    const [price2, setPrice2] = useState("")
 
     return (
         <>
@@ -95,7 +106,7 @@ const Document1 = () => {
                     </div>
 
                     <Card style={{ boxShadow: "0 7px 25px rgb(0 0 0 / 8%)", borderRadius: 20 }}>
-                        <h2>Upload files</h2>
+                        <h2>Upload Klausul 1</h2>
                         <Dragger {...props}>
                             <p className="ant-upload-drag-icon">
                                 <InboxOutlined />
@@ -107,6 +118,18 @@ const Document1 = () => {
                             </p>
                         </Dragger>
                     </Card>
+                </div>
+
+
+                <div className="details" >
+
+                    <Card
+                        hoverable
+                    >
+                        <ShowDokumens />
+                    </Card>
+
+
                 </div>
 
                 <div className="details">

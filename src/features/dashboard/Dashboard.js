@@ -50,7 +50,7 @@ const Dashboard = () => {
 
                 {/* cards */}
                 <div className="cardBox">
-                    <NavLink exact to='/userslists'>
+                    <NavLink to='/userslists'>
                         <div className="card">
                             <div>
                                 <div className="numbers">Daftar</div>
@@ -63,7 +63,7 @@ const Dashboard = () => {
                     </NavLink>
 
 
-                    <NavLink exact to='/klausul8'>
+                    <NavLink to='/klausul8'>
                         <div className="card">
                             <div>
                                 <div className="numbers">Klausul 8</div>
@@ -74,7 +74,7 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </NavLink>
-                    <NavLink exact to='/klausul9'>
+                    <NavLink to='/klausul9'>
                         <div className="card">
                             <div>
                                 <div className="numbers">Klausul 9</div>
@@ -85,7 +85,7 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </NavLink>
-                    <NavLink exact to='' onClick={signOut}>
+                    <NavLink to='' onClick={signOut}>
                         <div className="card">
                             <div>
                                 <div className="numbers">Logout</div>

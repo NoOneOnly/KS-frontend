@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row, Card, Button, Form, Input, Select, Space } from 'antd';
+import { Col, Row, Card, Button, Form, Input, Select, Space, Upload, message } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 import axios from "../../app/api/axios";
 import { useGetFormisusQuery } from "../formisu/formisusApiSlice"
 import useAuth from '../../hooks/useAuth';
 import FormIsuComponent from './subklausul/subklausul2/FormIsuComponent';
 import CreateFormIsuComponent from './subklausul/subklausul2/CreateFormIsuComponent';
+import Swal from 'sweetalert2';
+import { InboxOutlined } from '@ant-design/icons';
 
 
 
@@ -16,7 +18,9 @@ const Document2 = () => {
     const [activeTabKey1, setActiveTabKey1] = useState('tab1');
     const [deskripsi, setDeskripsi] = useState('')
 
-    const { formisuID } = useAuth()
+    const { formisuID, userId } = useAuth()
+
+
 
 
 
@@ -181,6 +185,54 @@ const Document2 = () => {
 
 
 
+    const { Dragger } = Upload;
+    const props = {
+        name: 'file',
+        // multiple: true,
+
+        data: {
+            'user': userId, // masukin data userid dari sini ygy
+            'namafile': 'klausul2',
+            'ekstension': 'pdf'
+        },
+
+
+
+        // action: 'https://spdsoftware-api.onrender.com/upload',
+        action: 'http://localhost:4500/upload',
+        onChange(info) {
+            const { status } = info.file;
+            if (status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (status === 'done') {
+                // message.success(`${info.file.name} file uploaded successfully.`);
+                Swal.fire({
+                    title: 'Upload success',
+                    icon: 'success',
+
+
+                    confirmButtonText: 'OK',
+
+                }).then(async (result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        // await Swal.fire('Saved!', '', 'success')
+                        window.location.reload()
+                    }
+                })
+                // window.location.reload();
+            } else if (status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+        onDrop(e) {
+            console.log('Dropped files', e.dataTransfer.files);
+        },
+    };
+
+
+
 
 
 
@@ -189,7 +241,7 @@ const Document2 = () => {
             <div className="main" style={{ 'left': "110px" }}>
 
                 <Row>
-                    <Col span={16}>
+                    <Col span={15}>
                         <Card
                             hoverable
                             style={{
@@ -204,6 +256,23 @@ const Document2 = () => {
                             }}
                         >
                             {contentList[activeTabKey1]}
+                        </Card>
+                    </Col>
+                    <Col span={8} style={{ marginLeft: 15 }}>
+                        <Card
+                            hoverable
+                        >
+                            <h2>Upload Klausul 2</h2>
+                            <Dragger {...props}>
+                                <p className="ant-upload-drag-icon">
+                                    <InboxOutlined />
+                                </p>
+                                <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                                <p className="ant-upload-hint">
+                                    Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+                                    band files
+                                </p>
+                            </Dragger>
                         </Card>
                     </Col>
 

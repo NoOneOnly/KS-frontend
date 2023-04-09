@@ -165,7 +165,7 @@ const Login = () => {
                             <input
                                 className="form__input"
                                 type="text"
-                                id="username"
+
                                 placeholder="Username"
                                 ref={userRef}
                                 value={username}
@@ -180,7 +180,7 @@ const Login = () => {
                             <input
                                 className="form__input"
                                 type="password"
-                                id="password"
+
                                 placeholder="Password"
                                 onChange={handlePwdInput}
                                 value={password}

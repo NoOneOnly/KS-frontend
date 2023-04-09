@@ -4,17 +4,28 @@ import { faNoteSticky, faListNumeric } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 import axios, { axiosPrivate } from "../../app/api/axios";
 import { saveAs } from 'file-saver'
-import { Col, Row, Card, Button, Form, Input, Select, Radio, Space } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Col, Row, Card, Button, Form, Input, Select, Radio, Space, Upload, message } from 'antd';
+import { MinusCircleOutlined, PlusOutlined, InboxOutlined } from '@ant-design/icons';
 import { DownloadOutlined } from '@ant-design/icons';
+import useAuth from "../../hooks/useAuth";
+
+
+import { selectCurrentToken } from "../auth/authSlice";
+import { useSelector } from "react-redux";
+
+
 
 import "./Document4.css"
+import Swal from "sweetalert2";
 
 
 const DATA_URL = '/document4'
 
 const Document4 = () => {
 
+    const token = useSelector(selectCurrentToken)
+
+    const { auth, userId } = useAuth();
 
     const [name, setName] = useState("");
     const [receiptId, setReceiptId] = useState("")
@@ -154,8 +165,13 @@ const Document4 = () => {
 
     }
 
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const at = (auth?.accessToken)
+
         try {
             const response = await axios.post(
                 DATA_URL,
@@ -163,7 +179,8 @@ const Document4 = () => {
 
                 {
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${at}`,
                     },
                     withCredentials: true,
                 }
@@ -186,8 +203,6 @@ const Document4 = () => {
 
 
     };
-
-
 
     const [activeTabKey1, setActiveTabKey1] = useState('tab1');
 
@@ -492,6 +507,52 @@ const Document4 = () => {
 
 
 
+    const { Dragger } = Upload;
+    const props = {
+        name: 'file',
+        // multiple: true,
+
+        data: {
+            'user': userId, // masukin data userid dari sini ygy
+            'namafile': 'klausul4',
+            'ekstension': 'pdf'
+        },
+
+
+
+        // action: 'https://spdsoftware-api.onrender.com/upload',
+        action: 'http://localhost:4500/upload',
+        onChange(info) {
+            const { status } = info.file;
+            if (status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (status === 'done') {
+                // message.success(`${info.file.name} file uploaded successfully.`);
+                Swal.fire({
+                    title: 'Upload success',
+                    icon: 'success',
+
+
+                    confirmButtonText: 'OK',
+
+                }).then(async (result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        // await Swal.fire('Saved!', '', 'success')
+                        window.location.reload()
+                    }
+                })
+                // window.location.reload();
+            } else if (status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+        onDrop(e) {
+            console.log('Dropped files', e.dataTransfer.files);
+        },
+    };
+
 
     return (
         <>
@@ -665,7 +726,7 @@ const Document4 = () => {
                 </div>
                 <div className="details" id="klausul4">
                     <Row>
-                        <Col span={24} >
+                        <Col span={15} >
                             <Card
                                 hoverable
                                 style={{
@@ -680,6 +741,23 @@ const Document4 = () => {
                                 }}
                             >
                                 {contentList[activeTabKey1]}
+                            </Card>
+                        </Col>
+                        <Col span={8} style={{ marginLeft: 15 }}>
+                            <Card
+                                hoverable
+                            >
+                                <h2>Upload Klausul 4</h2>
+                                <Dragger {...props}>
+                                    <p className="ant-upload-drag-icon">
+                                        <InboxOutlined />
+                                    </p>
+                                    <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                                    <p className="ant-upload-hint">
+                                        Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+                                        band files
+                                    </p>
+                                </Dragger>
                             </Card>
                         </Col>
                     </Row>
